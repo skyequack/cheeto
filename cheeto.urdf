@@ -1,0 +1,432 @@
+<?xml version="1.0"?>
+<robot name="cheeto_quadruped">
+
+  <!-- Main Body Link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust origin as needed -->
+      <geometry>
+        <box size="0.3 0.2 0.1"/> <!-- TODO: Change to actual body dimensions (length width height) -->
+      </geometry>
+      <material name="body_color">
+        <color rgba="0.8 0.8 0.8 1.0"/> <!-- TODO: Change to desired body color (R G B Alpha) -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust collision origin as needed -->
+      <geometry>
+        <box size="0.3 0.2 0.1"/> <!-- TODO: Match visual geometry or simplify for collision -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust center of mass -->
+      <mass value="2.0"/> <!-- TODO: Set actual body mass in kg -->
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/> <!-- TODO: Calculate actual inertia tensor -->
+    </inertial>
+  </link>
+
+  <!-- LEG 1: Front Left -->
+  
+  <!-- Hip 1 Link -->
+  <link name="hip1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/hip.stl"/> <!-- TODO: Replace with actual hip mesh file path -->
+      </geometry>
+      <material name="hip_color">
+        <color rgba="0.6 0.6 0.6 1.0"/> <!-- TODO: Set hip color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip collision origin -->
+      <geometry>
+        <cylinder radius="0.02" length="0.05"/> <!-- TODO: Replace with actual hip collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip center of mass -->
+      <mass value="0.1"/> <!-- TODO: Set actual hip mass -->
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- TODO: Calculate hip inertia -->
+    </inertial>
+  </link>
+
+  <!-- Hip 1 Joint (base_link to hip1) -->
+  <joint name="hip1_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="hip1"/>
+    <origin xyz="0.15 0.1 0" rpy="0 0 0"/> <!-- TODO: Position at front-left corner of base -->
+    <axis xyz="0 0 1"/> <!-- TODO: Rotation axis perpendicular to base plane (Z-axis) -->
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="5"/> <!-- TODO: Adjust joint limits, effort, and velocity -->
+  </joint>
+
+  <!-- Thigh 1 Link -->
+  <link name="thigh1">
+    <visual>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/thigh.stl"/> <!-- TODO: Replace with actual thigh mesh file path -->
+      </geometry>
+      <material name="thigh_color">
+        <color rgba="0.4 0.4 0.4 1.0"/> <!-- TODO: Set thigh color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh collision origin -->
+      <geometry>
+        <cylinder radius="0.015" length="0.2"/> <!-- TODO: Replace with actual thigh collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh center of mass -->
+      <mass value="0.3"/> <!-- TODO: Set actual thigh mass -->
+      <inertia ixx="0.003" ixy="0" ixz="0" iyy="0.003" iyz="0" izz="0.0001"/> <!-- TODO: Calculate thigh inertia -->
+    </inertial>
+  </link>
+
+  <!-- Thigh 1 Joint (hip1 to thigh1) -->
+  <joint name="thigh1_joint" type="revolute">
+    <parent link="hip1"/>
+    <child link="thigh1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust thigh attachment point -->
+    <axis xyz="1 0 0"/> <!-- TODO: Thigh rotation axis (typically X for forward/backward motion) -->
+    <limit lower="-1.57" upper="1.57" effort="15" velocity="5"/> <!-- TODO: Adjust thigh joint limits -->
+  </joint>
+
+  <!-- Foot 1 Link -->
+  <link name="foot1">
+    <visual>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/foot.stl"/> <!-- TODO: Replace with actual foot mesh file path -->
+      </geometry>
+      <material name="foot_color">
+        <color rgba="0.2 0.2 0.2 1.0"/> <!-- TODO: Set foot color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot collision origin -->
+      <geometry>
+        <sphere radius="0.02"/> <!-- TODO: Replace with actual foot collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot center of mass -->
+      <mass value="0.05"/> <!-- TODO: Set actual foot mass -->
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/> <!-- TODO: Calculate foot inertia -->
+    </inertial>
+  </link>
+
+  <!-- Foot 1 Joint (thigh1 to foot1) -->
+  <joint name="foot1_joint" type="revolute">
+    <parent link="thigh1"/>
+    <child link="foot1"/>
+    <origin xyz="0 0 -0.2" rpy="0 0 0"/> <!-- TODO: Position at end of thigh -->
+    <axis xyz="1 0 0"/> <!-- TODO: Foot rotation axis -->
+    <limit lower="-1.57" upper="1.57" effort="5" velocity="5"/> <!-- TODO: Adjust foot joint limits -->
+  </joint>
+
+  <!-- LEG 2: Front Right -->
+  
+  <!-- Hip 2 Link -->
+  <link name="hip2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/hip.stl"/> <!-- TODO: Replace with actual hip mesh file path -->
+      </geometry>
+      <material name="hip_color">
+        <color rgba="0.6 0.6 0.6 1.0"/> <!-- TODO: Set hip color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip collision origin -->
+      <geometry>
+        <cylinder radius="0.02" length="0.05"/> <!-- TODO: Replace with actual hip collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip center of mass -->
+      <mass value="0.1"/> <!-- TODO: Set actual hip mass -->
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- TODO: Calculate hip inertia -->
+    </inertial>
+  </link>
+
+  <!-- Hip 2 Joint (base_link to hip2) -->
+  <joint name="hip2_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="hip2"/>
+    <origin xyz="0.15 -0.1 0" rpy="0 0 0"/> <!-- TODO: Position at front-right corner of base -->
+    <axis xyz="0 0 1"/> <!-- TODO: Rotation axis perpendicular to base plane (Z-axis) -->
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="5"/> <!-- TODO: Adjust joint limits -->
+  </joint>
+
+  <!-- Thigh 2 Link -->
+  <link name="thigh2">
+    <visual>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/thigh.stl"/> <!-- TODO: Replace with actual thigh mesh file path -->
+      </geometry>
+      <material name="thigh_color">
+        <color rgba="0.4 0.4 0.4 1.0"/> <!-- TODO: Set thigh color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh collision origin -->
+      <geometry>
+        <cylinder radius="0.015" length="0.2"/> <!-- TODO: Replace with actual thigh collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh center of mass -->
+      <mass value="0.3"/> <!-- TODO: Set actual thigh mass -->
+      <inertia ixx="0.003" ixy="0" ixz="0" iyy="0.003" iyz="0" izz="0.0001"/> <!-- TODO: Calculate thigh inertia -->
+    </inertial>
+  </link>
+
+  <!-- Thigh 2 Joint (hip2 to thigh2) -->
+  <joint name="thigh2_joint" type="revolute">
+    <parent link="hip2"/>
+    <child link="thigh2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust thigh attachment point -->
+    <axis xyz="1 0 0"/> <!-- TODO: Thigh rotation axis -->
+    <limit lower="-1.57" upper="1.57" effort="15" velocity="5"/> <!-- TODO: Adjust thigh joint limits -->
+  </joint>
+
+  <!-- Foot 2 Link -->
+  <link name="foot2">
+    <visual>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/foot.stl"/> <!-- TODO: Replace with actual foot mesh file path -->
+      </geometry>
+      <material name="foot_color">
+        <color rgba="0.2 0.2 0.2 1.0"/> <!-- TODO: Set foot color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot collision origin -->
+      <geometry>
+        <sphere radius="0.02"/> <!-- TODO: Replace with actual foot collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot center of mass -->
+      <mass value="0.05"/> <!-- TODO: Set actual foot mass -->
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/> <!-- TODO: Calculate foot inertia -->
+    </inertial>
+  </link>
+
+  <!-- Foot 2 Joint (thigh2 to foot2) -->
+  <joint name="foot2_joint" type="revolute">
+    <parent link="thigh2"/>
+    <child link="foot2"/>
+    <origin xyz="0 0 -0.2" rpy="0 0 0"/> <!-- TODO: Position at end of thigh -->
+    <axis xyz="1 0 0"/> <!-- TODO: Foot rotation axis -->
+    <limit lower="-1.57" upper="1.57" effort="5" velocity="5"/> <!-- TODO: Adjust foot joint limits -->
+  </joint>
+
+  <!-- LEG 3: Rear Left -->
+  
+  <!-- Hip 3 Link -->
+  <link name="hip3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/hip.stl"/> <!-- TODO: Replace with actual hip mesh file path -->
+      </geometry>
+      <material name="hip_color">
+        <color rgba="0.6 0.6 0.6 1.0"/> <!-- TODO: Set hip color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip collision origin -->
+      <geometry>
+        <cylinder radius="0.02" length="0.05"/> <!-- TODO: Replace with actual hip collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip center of mass -->
+      <mass value="0.1"/> <!-- TODO: Set actual hip mass -->
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- TODO: Calculate hip inertia -->
+    </inertial>
+  </link>
+
+  <!-- Hip 3 Joint (base_link to hip3) -->
+  <joint name="hip3_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="hip3"/>
+    <origin xyz="-0.15 0.1 0" rpy="0 0 0"/> <!-- TODO: Position at rear-left corner of base -->
+    <axis xyz="0 0 1"/> <!-- TODO: Rotation axis perpendicular to base plane (Z-axis) -->
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="5"/> <!-- TODO: Adjust joint limits -->
+  </joint>
+
+  <!-- Thigh 3 Link -->
+  <link name="thigh3">
+    <visual>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/thigh.stl"/> <!-- TODO: Replace with actual thigh mesh file path -->
+      </geometry>
+      <material name="thigh_color">
+        <color rgba="0.4 0.4 0.4 1.0"/> <!-- TODO: Set thigh color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh collision origin -->
+      <geometry>
+        <cylinder radius="0.015" length="0.2"/> <!-- TODO: Replace with actual thigh collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh center of mass -->
+      <mass value="0.3"/> <!-- TODO: Set actual thigh mass -->
+      <inertia ixx="0.003" ixy="0" ixz="0" iyy="0.003" iyz="0" izz="0.0001"/> <!-- TODO: Calculate thigh inertia -->
+    </inertial>
+  </link>
+
+  <!-- Thigh 3 Joint (hip3 to thigh3) -->
+  <joint name="thigh3_joint" type="revolute">
+    <parent link="hip3"/>
+    <child link="thigh3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust thigh attachment point -->
+    <axis xyz="1 0 0"/> <!-- TODO: Thigh rotation axis -->
+    <limit lower="-1.57" upper="1.57" effort="15" velocity="5"/> <!-- TODO: Adjust thigh joint limits -->
+  </joint>
+
+  <!-- Foot 3 Link -->
+  <link name="foot3">
+    <visual>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/foot.stl"/> <!-- TODO: Replace with actual foot mesh file path -->
+      </geometry>
+      <material name="foot_color">
+        <color rgba="0.2 0.2 0.2 1.0"/> <!-- TODO: Set foot color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot collision origin -->
+      <geometry>
+        <sphere radius="0.02"/> <!-- TODO: Replace with actual foot collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot center of mass -->
+      <mass value="0.05"/> <!-- TODO: Set actual foot mass -->
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/> <!-- TODO: Calculate foot inertia -->
+    </inertial>
+  </link>
+
+  <!-- Foot 3 Joint (thigh3 to foot3) -->
+  <joint name="foot3_joint" type="revolute">
+    <parent link="thigh3"/>
+    <child link="foot3"/>
+    <origin xyz="0 0 -0.2" rpy="0 0 0"/> <!-- TODO: Position at end of thigh -->
+    <axis xyz="1 0 0"/> <!-- TODO: Foot rotation axis -->
+    <limit lower="-1.57" upper="1.57" effort="5" velocity="5"/> <!-- TODO: Adjust foot joint limits -->
+  </joint>
+
+  <!-- LEG 4: Rear Right -->
+  
+  <!-- Hip 4 Link -->
+  <link name="hip4">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/hip.stl"/> <!-- TODO: Replace with actual hip mesh file path -->
+      </geometry>
+      <material name="hip_color">
+        <color rgba="0.6 0.6 0.6 1.0"/> <!-- TODO: Set hip color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip collision origin -->
+      <geometry>
+        <cylinder radius="0.02" length="0.05"/> <!-- TODO: Replace with actual hip collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip center of mass -->
+      <mass value="0.1"/> <!-- TODO: Set actual hip mass -->
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- TODO: Calculate hip inertia -->
+    </inertial>
+  </link>
+
+  <!-- Hip 4 Joint (base_link to hip4) -->
+  <joint name="hip4_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="hip4"/>
+    <origin xyz="-0.15 -0.1 0" rpy="0 0 0"/> <!-- TODO: Position at rear-right corner of base -->
+    <axis xyz="0 0 1"/> <!-- TODO: Rotation axis perpendicular to base plane (Z-axis) -->
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="5"/> <!-- TODO: Adjust joint limits -->
+  </joint>
+
+  <!-- Thigh 4 Link -->
+  <link name="thigh4">
+    <visual>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/thigh.stl"/> <!-- TODO: Replace with actual thigh mesh file path -->
+      </geometry>
+      <material name="thigh_color">
+        <color rgba="0.4 0.4 0.4 1.0"/> <!-- TODO: Set thigh color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh collision origin -->
+      <geometry>
+        <cylinder radius="0.015" length="0.2"/> <!-- TODO: Replace with actual thigh collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/> <!-- TODO: Adjust thigh center of mass -->
+      <mass value="0.3"/> <!-- TODO: Set actual thigh mass -->
+      <inertia ixx="0.003" ixy="0" ixz="0" iyy="0.003" iyz="0" izz="0.0001"/> <!-- TODO: Calculate thigh inertia -->
+    </inertial>
+  </link>
+
+  <!-- Thigh 4 Joint (hip4 to thigh4) -->
+  <joint name="thigh4_joint" type="revolute">
+    <parent link="hip4"/>
+    <child link="thigh4"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust thigh attachment point -->
+    <axis xyz="1 0 0"/> <!-- TODO: Thigh rotation axis -->
+    <limit lower="-1.57" upper="1.57" effort="15" velocity="5"/> <!-- TODO: Adjust thigh joint limits -->
+  </joint>
+
+  <!-- Foot 4 Link -->
+  <link name="foot4">
+    <visual>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot visual origin -->
+      <geometry>
+        <mesh filename="package://cheeto/meshes/foot.stl"/> <!-- TODO: Replace with actual foot mesh file path -->
+      </geometry>
+      <material name="foot_color">
+        <color rgba="0.2 0.2 0.2 1.0"/> <!-- TODO: Set foot color -->
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot collision origin -->
+      <geometry>
+        <sphere radius="0.02"/> <!-- TODO: Replace with actual foot collision geometry -->
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/> <!-- TODO: Adjust foot center of mass -->
+      <mass value="0.05"/> <!-- TODO: Set actual foot mass -->
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/> <!-- TODO: Calculate foot inertia -->
+    </inertial>
+  </link>
+
+  <!-- Foot 4 Joint (thigh4 to foot4) -->
+  <joint name="foot4_joint" type="revolute">
+    <parent link="thigh4"/>
+    <child link="foot4"/>
+    <origin xyz="0 0 -0.2" rpy="0 0 0"/> <!-- TODO: Position at end of thigh -->
+    <axis xyz="1 0 0"/> <!-- TODO: Foot rotation axis -->
+    <limit lower="-1.57" upper="1.57" effort="5" velocity="5"/> <!-- TODO: Adjust foot joint limits -->
+  </joint>
+
+</robot>
