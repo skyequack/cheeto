@@ -30,7 +30,7 @@
   <!-- Hip 1 Link -->
   <link name="hip1">
     <visual>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip visual origin -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip visual origin -->
       <geometry>
         <mesh filename="meshes/hip.stl"/> <!-- Hip mesh file path -->
       </geometry>
@@ -39,13 +39,13 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip collision origin -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip collision origin -->
       <geometry>
         <mesh filename="meshes/hip.stl"/> <!-- Hip mesh file path -->
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip center of mass -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- TODO: Adjust hip center of mass -->
       <mass value="0.1"/> <!-- TODO: Set actual hip mass -->
       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- TODO: Calculate hip inertia -->
     </inertial>
@@ -131,7 +131,7 @@
   <!-- Hip 2 Link -->
   <link name="hip2">
     <visual>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip visual origin -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip visual origin -->
       <geometry>
         <mesh filename="meshes/hip.stl"/> <!-- Hip mesh file path -->
       </geometry>
@@ -140,13 +140,13 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip collision origin -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip collision origin -->
       <geometry>
         <mesh filename="meshes/hip.stl"/> <!-- Hip mesh file path -->
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip center of mass -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip center of mass -->
       <mass value="0.1"/> <!-- TODO: Set actual hip mass -->
       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- TODO: Calculate hip inertia -->
     </inertial>
@@ -232,7 +232,7 @@
   <!-- Hip 3 Link -->
   <link name="hip3">
     <visual>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip visual origin -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip visual origin -->
       <geometry>
         <mesh filename="meshes/hip.stl"/> <!-- Hip mesh file path -->
       </geometry>
@@ -241,13 +241,13 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip collision origin -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip collision origin -->
       <geometry>
         <mesh filename="meshes/hip.stl"/> <!-- Hip mesh file path -->
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip center of mass -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip center of mass -->
       <mass value="0.1"/> <!-- TODO: Set actual hip mass -->
       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- TODO: Calculate hip inertia -->
     </inertial>
@@ -333,7 +333,7 @@
   <!-- Hip 4 Link -->
   <link name="hip4">
     <visual>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip visual origin -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip visual origin -->
       <geometry>
         <mesh filename="meshes/hip.stl"/> <!-- Hip mesh file path -->
       </geometry>
@@ -342,13 +342,13 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip collision origin -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip collision origin -->
       <geometry>
         <mesh filename="meshes/hip.stl"/> <!-- Hip mesh file path -->
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="82 0 0" rpy="0 0 0"/> <!-- Hip center of mass -->
+      <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Hip center of mass -->
       <mass value="0.1"/> <!-- TODO: Set actual hip mass -->
       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/> <!-- TODO: Calculate hip inertia -->
     </inertial>
